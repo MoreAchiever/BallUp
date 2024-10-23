@@ -23,29 +23,12 @@
 # Any file in /RawContent dir will be managed by git lfs.
 !/RawContent/**/*
 
-# OS/platform generated files.
 
 # Windows
 ehthumbs.db
 Thumbs.db
 
-# Mac OS X
-.DS_Store
-.DS_Store?
-.AppleDouble
-.LSOverride
-._*
 
-# Linux
-*~
-.directory
-
-# vim
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-*.un~
-Session.vim
-.netrwhist
 
 # Visual Studio
 .vs

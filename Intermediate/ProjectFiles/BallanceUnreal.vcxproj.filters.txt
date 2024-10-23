@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\BallanceUnreal.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\BallanceUnreal.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\BallanceUnrealEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <None Include="..\..\UpgradeLog.htm" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\BallanceUnreal">
+      <UniqueIdentifier>{3249E2B3-E504-3CBC-9739-EE1788F3F407}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\BallanceUnreal\BallanceUnreal.Build.cs">
+      <Filter>Source\BallanceUnreal</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\BallanceUnreal\BallanceUnreal.cpp">
+      <Filter>Source\BallanceUnreal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BallanceUnreal\BallanceUnreal.h">
+      <Filter>Source\BallanceUnreal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BallanceUnreal\MyPlayerController.cpp">
+      <Filter>Source\BallanceUnreal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BallanceUnreal\MyPlayerController.h">
+      <Filter>Source\BallanceUnreal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BallanceUnreal\MyPlayerPawn.cpp">
+      <Filter>Source\BallanceUnreal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BallanceUnreal\MyPlayerPawn.h">
+      <Filter>Source\BallanceUnreal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BallanceUnreal\SpherePawn.cpp">
+      <Filter>Source\BallanceUnreal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BallanceUnreal\SpherePawn.h">
+      <Filter>Source\BallanceUnreal</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
