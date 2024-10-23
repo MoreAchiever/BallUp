@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "BallanceUnreal",
+			"Path": "..\\Source\\BallanceUnreal.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "BallanceUnrealEditor",
+			"Path": "..\\Source\\BallanceUnrealEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
