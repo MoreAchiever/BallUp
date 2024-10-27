@@ -1,11 +1,11 @@
-"E:\Ballance C++\BallanceUnreal\Intermediate\Build\Win64\UnrealEditor\Inc\BallanceUnreal\UHT\BallanceUnreal.init.gen.cpp"
-/FI"E:\Ballance C++\BallanceUnreal\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h"
-/FI"E:\Ballance C++\BallanceUnreal\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\Definitions.BallanceUnreal.h"
-/Yu"E:\Ballance C++\BallanceUnreal\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h"
-/Fp"E:\Ballance C++\BallanceUnreal\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h.pch"
-/Fo"E:\Ballance C++\BallanceUnreal\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.init.gen.cpp.obj"
-/sourceDependencies "E:\Ballance C++\BallanceUnreal\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.init.gen.cpp.dep.json"
-@"E:\Ballance C++\BallanceUnreal\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.Shared.rsp"
+"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\UnrealEditor\Inc\BallanceUnreal\UHT\BallanceUnreal.init.gen.cpp"
+/FI"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h"
+/FI"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\Definitions.BallanceUnreal.h"
+/Yu"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h"
+/Fp"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h.pch"
+/Fo"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.init.gen.cpp.obj"
+/sourceDependencies "C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.init.gen.cpp.dep.json"
+@"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi

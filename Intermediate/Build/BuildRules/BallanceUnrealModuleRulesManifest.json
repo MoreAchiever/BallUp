@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"E:\\Ballance C++\\BallanceUnreal\\Source\\BallanceUnreal\\BallanceUnreal.Build.cs",
-		"E:\\Ballance C++\\BallanceUnreal\\Source\\BallanceUnreal.Target.cs",
-		"E:\\Ballance C++\\BallanceUnreal\\Source\\BallanceUnrealEditor.Target.cs"
+		"C:\\Users\\fahmi\\Desktop\\unreal-c\\Source\\BallanceUnreal\\BallanceUnreal.Build.cs",
+		"C:\\Users\\fahmi\\Desktop\\unreal-c\\Source\\BallanceUnreal.Target.cs",
+		"C:\\Users\\fahmi\\Desktop\\unreal-c\\Source\\BallanceUnrealEditor.Target.cs"
 	],
 	"EngineVersion": "5.4.4"
 }
