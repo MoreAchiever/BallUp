@@ -15,14 +15,48 @@ ASpherePawn::ASpherePawn()
     SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
     SetRootComponent(SphereComponent);
     SphereComponent->SetSphereRadius(50.0f);
-    SphereComponent->SetSimulatePhysics(true); // Enable physics simulation
-    SphereComponent->SetCollisionProfileName(TEXT("Pawn")); // Use 'Pawn' collision preset
-    SphereComponent->SetEnableGravity(true); // Enable gravity
+
+    // Collision Settings
+    SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    SphereComponent->SetCollisionObjectType(ECollisionChannel::ECC_Pawn); // Set as a 'Pawn' object type
+    SphereComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block); // Block everything by default
+    SphereComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap); // Overlap with other Pawns
+    SphereComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Ignore); // Ignore visibility checks
+
+    // Physics Settings
+    SphereComponent->SetSimulatePhysics(true);
+    SphereComponent->SetEnableGravity(true);
+    SphereComponent->SetMassOverrideInKg(NAME_None, 10.0f, true); // Set mass to 10kg
+    SphereComponent->SetNotifyRigidBodyCollision(true); // Enable collision notifications
+    SphereComponent->SetGenerateOverlapEvents(true); // Enable overlap events
+
 
     // Initialize Static Mesh Component (for visual representation)
     BallMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BallMesh"));
     BallMesh->SetupAttachment(SphereComponent);
-    BallMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision); // Disable collision for visual mesh
+    
+    // Collision Settings for Ball Mesh
+    BallMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    BallMesh->SetCollisionObjectType(ECollisionChannel::ECC_Pawn); // Set as a 'Pawn' object type
+    BallMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block); // Block everything by default
+    BallMesh->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap); // Overlap with other Pawns
+    BallMesh->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Ignore); // Ignore visibility checks
+
+    // Physics Settings for Ball Mesh
+    BallMesh->SetSimulatePhysics(true);
+    BallMesh->SetEnableGravity(true);
+    BallMesh->SetMassOverrideInKg(NAME_None, 10.0f, true); // Set mass to 10kg
+    BallMesh->SetNotifyRigidBodyCollision(true); // Enable collision notifications
+    BallMesh->SetGenerateOverlapEvents(true); // Enable overlap events
+
+    //// Load the Material from the Content Browser
+    //static ConstructorHelpers::FObjectFinder<UMaterialInterface> BallMaterial(TEXT("/Game/Path/To/Your/Material.YourMaterialName"));
+
+    //if (BallMaterial.Succeeded())
+    //{
+    //    BallMesh->SetMaterial(0, BallMaterial.Object); // Set the material to the first slot (index 0)
+    //}
+
     BallMesh->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f)); // Adjust scale as needed
 
     // Initialize Spring Arm Component (for camera)
@@ -30,6 +64,10 @@ ASpherePawn::ASpherePawn()
     SpringArm->TargetArmLength = 500.f; // Distance from the ball to the camera
     SpringArm->bUsePawnControlRotation = true; // Allow camera rotation with the player
     SpringArm->SetupAttachment(SphereComponent);
+
+    // Set the spring arm to tilt down 45 degrees
+    SpringArm->SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f)); // Pitch down by -45 degrees
+
 
     // Initialize Camera Component
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
@@ -83,6 +121,7 @@ void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void ASpherePawn::BeginPlay()
 {
     Super::BeginPlay();
+    UE_LOG(LogTemp, Warning, TEXT("SpherePawn has been instantiated!"));
  
 }
 
