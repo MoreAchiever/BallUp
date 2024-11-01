@@ -9,12 +9,19 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
+class UPrimitiveComponent;
+struct FHitResult;
 #ifdef BALLANCEUNREAL_SpherePawn_generated_h
 #error "SpherePawn.generated.h already included, missing '#pragma once' in SpherePawn.h"
 #endif
 #define BALLANCEUNREAL_SpherePawn_generated_h
 
-#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_19_INCLASS_NO_PURE_DECLS \
+#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execOnCoinCollected);
+
+
+#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_22_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesASpherePawn(); \
 	friend struct Z_Construct_UClass_ASpherePawn_Statics; \
@@ -23,7 +30,7 @@ public: \
 	DECLARE_SERIALIZER(ASpherePawn)
 
 
-#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_19_ENHANCED_CONSTRUCTORS \
+#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_22_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	ASpherePawn(ASpherePawn&&); \
@@ -35,12 +42,13 @@ public: \
 	NO_API virtual ~ASpherePawn();
 
 
-#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_16_PROLOG
-#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_19_GENERATED_BODY \
+#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_19_PROLOG
+#define FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_22_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_19_INCLASS_NO_PURE_DECLS \
-	FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_19_ENHANCED_CONSTRUCTORS \
+	FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_22_INCLASS_NO_PURE_DECLS \
+	FID_unreal_c_Source_BallanceUnreal_SpherePawn_h_22_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

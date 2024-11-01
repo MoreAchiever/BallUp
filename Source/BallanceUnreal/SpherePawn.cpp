@@ -4,6 +4,10 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/PlayerInput.h" // For input binding
+#include "InGameHUDWidget.h" // Include the InGameHUDWidget header
+#include "Coin.h" // Include your Coin class header
+#include "Blueprint/UserWidget.h"
+#include "Sound/SoundBase.h"
 
 // Constructor
 ASpherePawn::ASpherePawn()
@@ -48,7 +52,8 @@ ASpherePawn::ASpherePawn()
     InputLatitude = 0.f;
     bInContact = false; // Initialize contact state to false
 
- 
+    Score = 0;
+
 }
 
 // Setup input bindings
@@ -83,14 +88,58 @@ void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void ASpherePawn::BeginPlay()
 {
     Super::BeginPlay();
- 
+
+    // Create the HUD widget
+    if (InGameHUDWidgetClass)
+    {
+        InGameHUDWidget = CreateWidget<UInGameHUDWidget>(GetWorld(), InGameHUDWidgetClass);
+
+        if (InGameHUDWidget)
+        {
+            InGameHUDWidget->AddToViewport();
+            UpdateScore(Score);
+        }
+    }
+
+    // Bind collision events
+    SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &ASpherePawn::OnCoinCollected);
+
 }
 
+void ASpherePawn::UpdateScore(int32 NewScore)
+{
+    Score += NewScore;
+
+    if (InGameHUDWidget)
+    {
+        UE_LOG(LogTemp, Log, TEXT("Current Score: %d"), Score);
+        InGameHUDWidget->UpdateScore(Score);  // Update the score in the HUD
+    }
+}
+
+// Collision handling function for collecting coins
+void ASpherePawn::OnCoinCollected(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    if (OtherActor && OtherActor->IsA(ACoin::StaticClass())) // Check if the overlapping actor is a coin
+    {
+        if (CollectionSound)
+        {
+            UGameplayStatics::PlaySoundAtLocation(this, CollectionSound, GetActorLocation());
+        }
+
+        UpdateScore(1); // Increment score by 1 for each coin collected
+
+        // Destroy the coin after collection
+        OtherActor->Destroy();
+
+      
+    }
+}
 
 
 void ASpherePawn::Jump()
 {
-    if ( bCanJump) // Check if in contact and can jump
+    if (bCanJump) // Check if in contact and can jump
     {
         // Apply an upward impulse when the ball is in contact with the ground
         float CurrentMass = SphereComponent->GetMass();
@@ -174,6 +223,9 @@ void ASpherePawn::Tick(float DeltaTime)
     {
         RestartGame(); // Call function to restart the game
     }
+
+ 
+
 }
 
 // Input handling methods

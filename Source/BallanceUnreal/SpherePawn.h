@@ -10,7 +10,10 @@
 #include "Engine/StaticMeshActor.h"
 #include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h" // Include for UGameplayStatics
+#include "InGameHUDWidget.h" // Include the InGameHUDWidget header
+#include "Coin.h" // Include your Coin class header
 #include "SpherePawn.generated.h"
+
 
 
 UCLASS()
@@ -37,6 +40,31 @@ public:
     void ResetJump(); // Declare the ResetJump function
     void RestartGame(); // Function to restart the game
 
+
+    // Variable to hold the HUD widget class
+    UPROPERTY(EditAnywhere, Category = "UI")
+    TSubclassOf<UUserWidget> InGameHUDWidgetClass;
+
+    // Score variable
+    UPROPERTY(BlueprintReadOnly, Category = "Score")
+    int32 Score;
+
+    // Reference to the HUD widget
+    UPROPERTY()
+    UInGameHUDWidget* InGameHUDWidget;
+
+    // Function to update the score
+    void UpdateScore(int32 NewScore);
+
+    // Collision handling function
+    UFUNCTION()
+    void OnCoinCollected(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+    // Sound Cue for collecting the coin
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+    class USoundBase* CollectionSound;
+
+
 protected:
     virtual void BeginPlay() override;
 
@@ -49,6 +77,10 @@ private:
     void InitializeDefaultPawnInputBindings(); // Declare the function
 
 private:
+
+
+   
+
     // Sphere Component for collision and physics simulation
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
     USphereComponent* SphereComponent;
@@ -67,6 +99,8 @@ private:
     // Movement Component
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
     UFloatingPawnMovement* FloatingPawnMovement;
+
+ 
 
     // Movement Input functions
     void MoveForward(float Value);
