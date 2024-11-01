@@ -4,6 +4,10 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/PlayerInput.h" // For input binding
+#include "InGameHUDWidget.h" // Include the InGameHUDWidget header
+#include "Coin.h" // Include your Coin class header
+#include "Blueprint/UserWidget.h"
+#include "Sound/SoundBase.h"
 
 // Constructor
 ASpherePawn::ASpherePawn()
@@ -15,48 +19,14 @@ ASpherePawn::ASpherePawn()
     SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
     SetRootComponent(SphereComponent);
     SphereComponent->SetSphereRadius(50.0f);
-
-    // Collision Settings
-    SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-    SphereComponent->SetCollisionObjectType(ECollisionChannel::ECC_Pawn); // Set as a 'Pawn' object type
-    SphereComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block); // Block everything by default
-    SphereComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap); // Overlap with other Pawns
-    SphereComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Ignore); // Ignore visibility checks
-
-    // Physics Settings
-    SphereComponent->SetSimulatePhysics(true);
-    SphereComponent->SetEnableGravity(true);
-    SphereComponent->SetMassOverrideInKg(NAME_None, 10.0f, true); // Set mass to 10kg
-    SphereComponent->SetNotifyRigidBodyCollision(true); // Enable collision notifications
-    SphereComponent->SetGenerateOverlapEvents(true); // Enable overlap events
-
+    SphereComponent->SetSimulatePhysics(true); // Enable physics simulation
+    SphereComponent->SetCollisionProfileName(TEXT("Pawn")); // Use 'Pawn' collision preset
+    SphereComponent->SetEnableGravity(true); // Enable gravity
 
     // Initialize Static Mesh Component (for visual representation)
     BallMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BallMesh"));
     BallMesh->SetupAttachment(SphereComponent);
-    
-    // Collision Settings for Ball Mesh
-    BallMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-    BallMesh->SetCollisionObjectType(ECollisionChannel::ECC_Pawn); // Set as a 'Pawn' object type
-    BallMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block); // Block everything by default
-    BallMesh->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap); // Overlap with other Pawns
-    BallMesh->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Ignore); // Ignore visibility checks
-
-    // Physics Settings for Ball Mesh
-    BallMesh->SetSimulatePhysics(true);
-    BallMesh->SetEnableGravity(true);
-    BallMesh->SetMassOverrideInKg(NAME_None, 10.0f, true); // Set mass to 10kg
-    BallMesh->SetNotifyRigidBodyCollision(true); // Enable collision notifications
-    BallMesh->SetGenerateOverlapEvents(true); // Enable overlap events
-
-    //// Load the Material from the Content Browser
-    //static ConstructorHelpers::FObjectFinder<UMaterialInterface> BallMaterial(TEXT("/Game/Path/To/Your/Material.YourMaterialName"));
-
-    //if (BallMaterial.Succeeded())
-    //{
-    //    BallMesh->SetMaterial(0, BallMaterial.Object); // Set the material to the first slot (index 0)
-    //}
-
+    BallMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision); // Disable collision for visual mesh
     BallMesh->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f)); // Adjust scale as needed
 
     // Initialize Spring Arm Component (for camera)
@@ -64,10 +34,6 @@ ASpherePawn::ASpherePawn()
     SpringArm->TargetArmLength = 500.f; // Distance from the ball to the camera
     SpringArm->bUsePawnControlRotation = true; // Allow camera rotation with the player
     SpringArm->SetupAttachment(SphereComponent);
-
-    // Set the spring arm to tilt down 45 degrees
-    SpringArm->SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f)); // Pitch down by -45 degrees
-
 
     // Initialize Camera Component
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
@@ -86,7 +52,8 @@ ASpherePawn::ASpherePawn()
     InputLatitude = 0.f;
     bInContact = false; // Initialize contact state to false
 
- 
+    Score = 0;
+
 }
 
 // Setup input bindings
@@ -121,15 +88,58 @@ void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void ASpherePawn::BeginPlay()
 {
     Super::BeginPlay();
-    UE_LOG(LogTemp, Warning, TEXT("SpherePawn has been instantiated!"));
- 
+
+    // Create the HUD widget
+    if (InGameHUDWidgetClass)
+    {
+        InGameHUDWidget = CreateWidget<UInGameHUDWidget>(GetWorld(), InGameHUDWidgetClass);
+
+        if (InGameHUDWidget)
+        {
+            InGameHUDWidget->AddToViewport();
+            UpdateScore(Score);
+        }
+    }
+
+    // Bind collision events
+    SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &ASpherePawn::OnCoinCollected);
+
 }
 
+void ASpherePawn::UpdateScore(int32 NewScore)
+{
+    Score += NewScore;
+
+    if (InGameHUDWidget)
+    {
+        UE_LOG(LogTemp, Log, TEXT("Current Score: %d"), Score);
+        InGameHUDWidget->UpdateScore(Score);  // Update the score in the HUD
+    }
+}
+
+// Collision handling function for collecting coins
+void ASpherePawn::OnCoinCollected(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    if (OtherActor && OtherActor->IsA(ACoin::StaticClass())) // Check if the overlapping actor is a coin
+    {
+        if (CollectionSound)
+        {
+            UGameplayStatics::PlaySoundAtLocation(this, CollectionSound, GetActorLocation());
+        }
+
+        UpdateScore(1); // Increment score by 1 for each coin collected
+
+        // Destroy the coin after collection
+        OtherActor->Destroy();
+
+      
+    }
+}
 
 
 void ASpherePawn::Jump()
 {
-    if ( bCanJump) // Check if in contact and can jump
+    if (bCanJump) // Check if in contact and can jump
     {
         // Apply an upward impulse when the ball is in contact with the ground
         float CurrentMass = SphereComponent->GetMass();
@@ -213,6 +223,9 @@ void ASpherePawn::Tick(float DeltaTime)
     {
         RestartGame(); // Call function to restart the game
     }
+
+ 
+
 }
 
 // Input handling methods

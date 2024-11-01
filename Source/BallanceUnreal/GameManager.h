@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "UMainMenuWidget.h" // Include your UMainMenuWidget header
+#include "MainMenuWidget.h" // Include your UMainMenuWidget header
 #include "GameManager.generated.h"
 
 /**
@@ -45,9 +45,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Game Management")
     void NextLevel();
 
+    UFUNCTION()
+    void ChangeLevel();
+
+    
+
     void ClearMainMenu(); // Add this function declaration
 
     void SpawnPlayerPawn();
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+    class USoundBase* NextLevelSound;
 
 protected:
     // Reference to the main menu widget
@@ -57,6 +65,7 @@ protected:
     // Instance of the main menu widget
     UMainMenuWidget* MainMenuWidget; // Pointer to the actual widget instance
 
+    FTimerHandle TransitionTimer;
     // Initialize the main menu widget
     void InitializeMainMenuWidget();
 };

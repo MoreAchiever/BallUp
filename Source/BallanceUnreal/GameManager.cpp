@@ -1,34 +1,42 @@
 #include "GameManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpherePawn.h"
-#include "UMainMenuWidget.h"
+#include "MainMenuWidget.h"
+#include "Sound/SoundBase.h"
 
 AGameManager::AGameManager()
 {
     // Set default values
     MainMenuWidgetClass = nullptr; // Set this in the editor to your UMainMenuWidget Blueprint
     // Set the default pawn class to ASpherePawn
-    DefaultPawnClass = ASpherePawn::StaticClass();
+    /*DefaultPawnClass = ASpherePawn::StaticClass();*/
+    // Set the default pawn class to your Blueprinted pawn class
+    /*static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("C:/Users/fahmi/Desktop/unreal-c/Content/Blueprints/MySpherePawn.uasset"));
+    if (PlayerPawnBPClass.Class != nullptr)
+    {
+        DefaultPawnClass = PlayerPawnBPClass.Class;
+    }*/
 }
 
 void AGameManager::BeginPlay()
 {
     Super::BeginPlay();
 
-    // Check if we should show the main menu
+    //// Check if we should show the main menu
     if (MainMenuWidgetClass)
     {
-        // Initialize and display the main menu widget
-        InitializeMainMenuWidget();
-        
+        // Get the current level name
+        FString CurrentLevelName = UGameplayStatics::GetCurrentLevelName(GetWorld());
+
+        // Only initialize the main menu if we are in the "MainMenu" level
+        if (CurrentLevelName == "MainMenuLevel")
+        {
+            // Initialize and display the main menu widget
+            InitializeMainMenuWidget();
+        }
     }
 
-    // Set the default pawn class to ASpherePawn
-    if (GetWorld())
-    {
-        UWorld* World = GetWorld();
-        World->GetAuthGameMode()->DefaultPawnClass = ASpherePawn::StaticClass();
-    }
+    
 }
 
 
@@ -53,7 +61,7 @@ void AGameManager::GoToMainMenu()
     {
         MainMenuWidget->AddToViewport();
     }
-   
+
 }
 
 
@@ -69,7 +77,7 @@ void AGameManager::ClearMainMenu()
     if (MainMenuWidget)
     {
         UE_LOG(LogTemp, Warning, TEXT("Clearing main menu widget..."));
-        MainMenuWidget->RemoveFromViewport();
+        MainMenuWidget->RemoveFromParent();
         MainMenuWidget = nullptr;
     }
 }
@@ -100,18 +108,15 @@ void AGameManager::SpawnPlayerPawn()
 void AGameManager::StartGame()
 {
     ClearMainMenu(); // Clear the main menu before starting the game
+    
     // Load the first level (replace "FirstLevel" with the actual level name)
     UE_LOG(LogTemp, Warning, TEXT("..."));
     UGameplayStatics::OpenLevel(this, FName(TEXT("NewWorld")));
+
     
-    if (GetWorld())
-    {
-        UWorld* World = GetWorld();
-        World->GetAuthGameMode()->DefaultPawnClass = ASpherePawn::StaticClass();
-    }
 
     // Call the function to spawn the player pawn at the desired location
-    SpawnPlayerPawn();
+   /* SpawnPlayerPawn();*/
 }
 
 void AGameManager::QuitGame()
@@ -128,7 +133,26 @@ void AGameManager::ReturnToMainMenu()
 
 void AGameManager::NextLevel()
 {
-    // Logic to go to the next level
-    // You can define your own logic for level progression here
-    UGameplayStatics::OpenLevel(this, FName(TEXT("NextLevel"))); // Replace with actual level name
+    
+    // Play the NextLevelSound  
+    if (NextLevelSound)
+    {
+        UGameplayStatics::PlaySound2D(this, NextLevelSound);
+    }
+
+    // Set a timer to call the ChangeLevel function after a short delay (e.g., 1 second)
+
+  
+    float DelayDuration = 1.0f; // Delay before changing level
+    GetWorld()->GetTimerManager().SetTimerForNextTick([this, DelayDuration]()
+        {
+            GetWorld()->GetTimerManager().SetTimer(TransitionTimer, this, &AGameManager::ChangeLevel, DelayDuration, false);
+        });
+  
+}
+
+// Function to change levels
+void AGameManager::ChangeLevel()
+{
+    UGameplayStatics::OpenLevel(this, FName(TEXT("MainMenuLevel"))); // Replace with actual level name
 }
