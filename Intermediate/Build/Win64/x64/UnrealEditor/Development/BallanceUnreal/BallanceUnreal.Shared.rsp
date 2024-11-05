@@ -281,8 +281,8 @@
 /I "Editor\SceneDepthPickerMode\Public"
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\AnimationEditMode\UHT"
 /I "Editor\AnimationEditMode\Public"
-/I "C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\UnrealEditor\Inc\BallanceUnreal\UHT"
-/I "C:\Users\fahmi\Desktop\unreal-c\Source"
+/I "E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\UnrealEditor\Inc\BallanceUnreal\UHT"
+/I "E:\Global BallanceC++\unreal-c\Source"
 /external:W0
 /external:I "ThirdParty\LibTiff\Source\Win64"
 /external:I "ThirdParty\LibTiff\Source"

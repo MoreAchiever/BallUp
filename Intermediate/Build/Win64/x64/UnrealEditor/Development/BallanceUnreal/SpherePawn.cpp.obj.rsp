@@ -1,11 +1,11 @@
-"C:\Users\fahmi\Desktop\unreal-c\Source\BallanceUnreal\SpherePawn.cpp"
-/FI"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h"
-/FI"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\Definitions.BallanceUnreal.h"
-/Yu"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h"
-/Fp"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h.pch"
-/Fo"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\SpherePawn.cpp.obj"
-/sourceDependencies "C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\SpherePawn.cpp.dep.json"
-@"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.Shared.rsp"
+"E:\Global BallanceC++\unreal-c\Source\BallanceUnreal\SpherePawn.cpp"
+/FI"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h"
+/FI"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\Definitions.BallanceUnreal.h"
+/Yu"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h"
+/Fp"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\BallanceUnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.InclOrderOldest.h.pch"
+/Fo"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\SpherePawn.cpp.obj"
+/sourceDependencies "E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\SpherePawn.cpp.dep.json"
+@"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi

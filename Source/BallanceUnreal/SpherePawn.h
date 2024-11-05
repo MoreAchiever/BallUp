@@ -68,12 +68,26 @@ public:
 protected:
     virtual void BeginPlay() override;
 
+    // Camera rotation functions
+    void StartRotateLeft();
+    void StopRotateLeft();
+    void StartRotateRight();
+    void StopRotateRight();
+    void UpdateCameraRotation(float DeltaTime);
+
 
 private:
     FTimerHandle JumpCooldownTimerHandle; // Timer handle for managing jump cooldown
     bool bCanJump = true; // Flag to determine if the pawn can jump
 
 private:
+
+    //camera rotation variables:
+    float CameraRotationSpeed = 90.0f; // Degrees per second
+    bool bRotatingLeft = false;
+    bool bRotatingRight = false;
+
+
     void InitializeDefaultPawnInputBindings(); // Declare the function
 
 private:

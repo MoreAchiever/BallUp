@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\fahmi\\desktop\\unreal-c\\source\\ballanceunreal\\ballanceunreal.cpp",
+        "Source": "e:\\global ballancec++\\unreal-c\\source\\ballanceunreal\\ballanceunreal.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\fahmi\\desktop\\unreal-c\\intermediate\\build\\win64\\x64\\ballanceunrealeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderoldest.h.pch",
+        "PCH": "e:\\global ballancec++\\unreal-c\\intermediate\\build\\win64\\x64\\ballanceunrealeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderoldest.h.pch",
         "Includes": [
-            "c:\\users\\fahmi\\desktop\\unreal-c\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\ballanceunreal\\definitions.ballanceunreal.h",
-            "c:\\users\\fahmi\\desktop\\unreal-c\\source\\ballanceunreal\\ballanceunreal.h"
+            "e:\\global ballancec++\\unreal-c\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\ballanceunreal\\definitions.ballanceunreal.h",
+            "e:\\global ballancec++\\unreal-c\\source\\ballanceunreal\\ballanceunreal.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

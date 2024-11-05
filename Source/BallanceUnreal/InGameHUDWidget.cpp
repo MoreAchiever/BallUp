@@ -2,11 +2,14 @@
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h" // Include for UGameplayStatics
 #include "GameManager.h" // Include your GameManager header
+#include <string> 
+
 
 void UInGameHUDWidget::NativeConstruct()
 {
     Super::NativeConstruct();
     CurrentScore = 0;  // Initialize current score
+    getCoins();
 
     // Get the GameManager instance
     GameManager = Cast<AGameManager>(UGameplayStatics::GetGameMode(this));
@@ -38,9 +41,12 @@ void UInGameHUDWidget::UpdateScore(int32 NewScore)
     // Assuming ScoreTextBlock is properly bound in the Blueprint
     if (ScoreTextBlock)
     {
-        ScoreTextBlock->SetText(FText::Format(FText::FromString("{0}/100"), FText::AsNumber(CurrentScore)));
+
+        //ScoreTextBlock->SetText(FText::Format(FText::FromString("{0}/100"), FText::AsNumber(CurrentScore)));
+        ScoreTextBlock->SetText(FText::Format(FText::FromString(FString::Printf(TEXT("{0}/%d"), TotalCoinsInLevel)),FText::AsNumber(CurrentScore)));
     }
-    if (CurrentScore == 2) 
+    
+    if (CurrentScore == TotalCoinsInLevel) // We need to change to the current amount of existing objects from static class ACoin
     {
         if (GameManager)
         {
@@ -48,4 +54,11 @@ void UInGameHUDWidget::UpdateScore(int32 NewScore)
         }
     }
 
+}
+
+void UInGameHUDWidget::getCoins() 
+{
+    TArray<AActor*> FoundCoins;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACoin::StaticClass(), FoundCoins);
+    TotalCoinsInLevel = FoundCoins.Num();
 }

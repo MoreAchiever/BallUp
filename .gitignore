@@ -30,12 +30,16 @@ Thumbs.db
 
 
 
-# Visual Studio
+# Visual Studio (code)
 .vs
+.vscode
 
 
 # Ignore everything in directory StarterContent
 Content/StarterContent/*
+
+#Ignore Bazar content due to size
+Content/Bazaar_Meshingun/
 
 # But don't ignore folder Materials inside StarterContent
 !Content/StarterContent/Materials/

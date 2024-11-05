@@ -72,6 +72,12 @@ void ASpherePawn::InitializeDefaultPawnInputBindings()
     UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_MoveLaterally", EKeys::D, 1.f));
     UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_Jump", EKeys::SpaceBar));
     UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_Dash", EKeys::LeftShift));
+
+
+    // Camera rotation:
+
+    UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_RotateLeft", EKeys::Q));
+    UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_RotateRight", EKeys::E));
 }
 
 void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -83,6 +89,13 @@ void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
     PlayerInputComponent->BindAxis("BallBearing_MoveLaterally", this, &ASpherePawn::MoveLaterally);
     PlayerInputComponent->BindAction("BallBearing_Jump", EInputEvent::IE_Pressed, this, &ASpherePawn::Jump);
     PlayerInputComponent->BindAction("BallBearing_Dash", EInputEvent::IE_Pressed, this, &ASpherePawn::Dash);
+
+
+    // Add camera rotation bindings
+    PlayerInputComponent->BindAction("BallBearing_RotateLeft", IE_Pressed, this, &ASpherePawn::StartRotateLeft);
+    PlayerInputComponent->BindAction("BallBearing_RotateLeft", IE_Released, this, &ASpherePawn::StopRotateLeft);
+    PlayerInputComponent->BindAction("BallBearing_RotateRight", IE_Pressed, this, &ASpherePawn::StartRotateRight);
+    PlayerInputComponent->BindAction("BallBearing_RotateRight", IE_Released, this, &ASpherePawn::StopRotateRight);
 }
 
 void ASpherePawn::BeginPlay()
@@ -180,8 +193,12 @@ void ASpherePawn::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+    //update camera rotation:
+    UpdateCameraRotation(DeltaTime);
+
+
     // Handling input for movement and setting velocities
-    FRotator ControlRotation = FRotator(0, GetControlRotation().Yaw, 0);
+    FRotator ControlRotation = GetControlRotation(); //FRotator(0, GetControlRotation().Yaw, 0);
     FRotationMatrix ControlMatrix(ControlRotation);
     FVector ForwardDirection = ControlMatrix.GetUnitAxis(EAxis::X);
     FVector RightDirection = ControlMatrix.GetUnitAxis(EAxis::Y);
@@ -189,6 +206,11 @@ void ASpherePawn::Tick(float DeltaTime)
     // Get current velocity and maintain Z component for jumping
     FVector Velocity = SphereComponent->GetPhysicsLinearVelocity();
     float Z = Velocity.Z;
+
+    // Apply movement forces relative to camera orientation
+    FVector MovementForce = (InputLatitude * RightDirection + InputLongitude * ForwardDirection) *
+        ControllerForce * SphereComponent->GetMass();
+    SphereComponent->AddForce(MovementForce);
 
     // Cap the speed of the ball
     if (Velocity.Size() > MaximumSpeed * 100.f) // Maximum Speed is in m/s
@@ -247,4 +269,48 @@ void ASpherePawn::MoveLongitudinally(float Value)
 void ASpherePawn::MoveLaterally(float Value)
 {
     InputLatitude = Value; // Store input value for lateral movement
+}
+
+
+
+//new functions for camera rotation:
+
+void ASpherePawn::StartRotateLeft()
+{
+    bRotatingLeft = true;
+}
+
+void ASpherePawn::StopRotateLeft()
+{
+    bRotatingLeft = false;
+}
+
+void ASpherePawn::StartRotateRight()
+{
+    bRotatingRight = true;
+}
+
+void ASpherePawn::StopRotateRight()
+{
+    bRotatingRight = false;
+}
+
+void ASpherePawn::UpdateCameraRotation(float DeltaTime)
+{
+    if (bRotatingLeft || bRotatingRight)
+    {
+        float RotationAmount = CameraRotationSpeed * DeltaTime;
+        if (bRotatingLeft)
+            RotationAmount *= -1.0f;
+
+        FRotator NewRotation = GetControlRotation();
+        NewRotation.Yaw += RotationAmount;
+
+        // Update the controller rotation
+        APlayerController* PC = Cast<APlayerController>(GetController());
+        if (PC)
+        {
+            PC->SetControlRotation(NewRotation);
+        }
+    }
 }

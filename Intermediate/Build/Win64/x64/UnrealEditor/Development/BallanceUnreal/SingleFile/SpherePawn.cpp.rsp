@@ -1,14 +1,14 @@
-"C:\Users\fahmi\Desktop\unreal-c\Source\BallanceUnreal\SpherePawn.cpp"
+"E:\Global BallanceC++\unreal-c\Source\BallanceUnreal\SpherePawn.cpp"
 /external:W0
 /external:I "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\INCLUDE"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\shared"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\um"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\winrt"
-/FI"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\Definitions.BallanceUnreal.h"
-/Fo"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\SingleFile\SpherePawn.cpp.obj"
-/sourceDependencies "C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\SingleFile\SpherePawn.cpp.dep.json"
-@"C:\Users\fahmi\Desktop\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.Shared.rsp"
+/FI"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\Definitions.BallanceUnreal.h"
+/Fo"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\SingleFile\SpherePawn.cpp.obj"
+/sourceDependencies "E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\SingleFile\SpherePawn.cpp.dep.json"
+@"E:\Global BallanceC++\unreal-c\Intermediate\Build\Win64\x64\UnrealEditor\Development\BallanceUnreal\BallanceUnreal.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi
