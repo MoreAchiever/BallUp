@@ -19,7 +19,8 @@ AMovableGround::AMovableGround()
     CubeMesh->SetupAttachment(BoxComponent);
 
     // Assign a default cube mesh
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeAsset(TEXT("/Engine/BasicShapes/Cube"));
+    /*static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeAsset(TEXT("/Engine/BasicShapes/Cube"));*/
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeAsset(TEXT("/Content/Bazaar_Meshingun/Environment/Assets/Mesh/Architecture/SM_Dome_02a"));
     if (CubeAsset.Succeeded())
     {
         CubeMesh->SetStaticMesh(CubeAsset.Object);
