@@ -17,11 +17,6 @@ public:
     // Constructor
     AGameManager();
 
-protected:
-    // Called when the game starts
-    virtual void BeginPlay() override;
-
-public:
     // Function to start the game
     UFUNCTION(BlueprintCallable, Category = "Game Management")
     void StartGame();
@@ -48,8 +43,6 @@ public:
     UFUNCTION()
     void ChangeLevel();
 
-    
-
     void ClearMainMenu(); // Add this function declaration
 
     void SpawnPlayerPawn();
@@ -58,6 +51,9 @@ public:
     class USoundBase* NextLevelSound;
 
 protected:
+    // Called when the game starts
+    virtual void BeginPlay() override;
+
     // Reference to the main menu widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
     TSubclassOf<UMainMenuWidget> MainMenuWidgetClass; // Class type of the main menu widget

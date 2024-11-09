@@ -9,11 +9,10 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Engine/StaticMeshActor.h"
 #include "DrawDebugHelpers.h"
-#include "Kismet/GameplayStatics.h" // Include for UGameplayStatics
-#include "InGameHUDWidget.h" // Include the InGameHUDWidget header
-#include "Coin.h" // Include your Coin class header
+#include "Kismet/GameplayStatics.h" 
+#include "InGameHUDWidget.h" 
+#include "Coin.h" 
 #include "SpherePawn.generated.h"
-
 
 
 UCLASS()
@@ -35,11 +34,8 @@ public:
     void LookUp(float Value);
     void LookRight(float Value);
 
-    
-
     void ResetJump(); // Declare the ResetJump function
     void RestartGame(); // Function to restart the game
-
 
     // Variable to hold the HUD widget class
     UPROPERTY(EditAnywhere, Category = "UI")
@@ -64,7 +60,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
     class USoundBase* CollectionSound;
 
-
 protected:
     virtual void BeginPlay() override;
 
@@ -75,24 +70,16 @@ protected:
     void StopRotateRight();
     void UpdateCameraRotation(float DeltaTime);
 
-
 private:
     FTimerHandle JumpCooldownTimerHandle; // Timer handle for managing jump cooldown
     bool bCanJump = true; // Flag to determine if the pawn can jump
-
-private:
 
     //camera rotation variables:
     float CameraRotationSpeed = 90.0f; // Degrees per second
     bool bRotatingLeft = false;
     bool bRotatingRight = false;
 
-
     void InitializeDefaultPawnInputBindings(); // Declare the function
-
-private:
-
-   
 
     // Sphere Component for collision and physics simulation
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -113,8 +100,6 @@ private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
     UFloatingPawnMovement* FloatingPawnMovement;
 
- 
-
     // Movement Input functions
     void MoveForward(float Value);
     void MoveRight(float Value);
@@ -124,12 +109,10 @@ private:
     float InputLatitude;  // For left/right movement
 
     // Jumping and dashing variables
-    bool bInContact;  // True if the ball is on the ground
     float JumpForce;
     float DashForce;
     float MaximumSpeed;
     float ControllerForce;
     float DashTimer;
 
-    
 };

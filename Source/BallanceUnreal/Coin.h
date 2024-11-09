@@ -12,11 +12,6 @@ class BALLANCEUNREAL_API ACoin : public AActor
 public:
     // Sets default values for this actor's properties
     ACoin();
-
-protected:
-    virtual void BeginPlay() override;
-
-public:
     virtual void Tick(float DeltaTime) override;
 
     // Sphere component for collision
@@ -27,6 +22,8 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     class UStaticMeshComponent* CoinMesh;
 
-   
+protected:
+    virtual void BeginPlay() override;
+     
      
 };

@@ -6,23 +6,14 @@
 
 AGameManager::AGameManager()
 {
-    // Set default values
     MainMenuWidgetClass = nullptr; // Set this in the editor to your UMainMenuWidget Blueprint
-    // Set the default pawn class to ASpherePawn
-    /*DefaultPawnClass = ASpherePawn::StaticClass();*/
-    // Set the default pawn class to your Blueprinted pawn class
-    /*static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("C:/Users/fahmi/Desktop/unreal-c/Content/Blueprints/MySpherePawn.uasset"));
-    if (PlayerPawnBPClass.Class != nullptr)
-    {
-        DefaultPawnClass = PlayerPawnBPClass.Class;
-    }*/
 }
 
 void AGameManager::BeginPlay()
 {
     Super::BeginPlay();
 
-    //// Check if we should show the main menu
+    // Check if we should show the main menu
     if (MainMenuWidgetClass)
     {
         // Get the current level name
@@ -35,10 +26,7 @@ void AGameManager::BeginPlay()
             InitializeMainMenuWidget();
         }
     }
-
-    
 }
-
 
 void AGameManager::InitializeMainMenuWidget()
 {
@@ -67,16 +55,13 @@ void AGameManager::GoToMainMenu()
 
 void AGameManager::PauseGame()
 {
-    // Logic to pause the game
     UGameplayStatics::SetGamePaused(GetWorld(), true);
 }
 
 void AGameManager::ClearMainMenu()
 {
-    UE_LOG(LogTemp, Warning, TEXT("Clearing main menu widget..."));
     if (MainMenuWidget)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Clearing main menu widget..."));
         MainMenuWidget->RemoveFromParent();
         MainMenuWidget = nullptr;
     }
@@ -110,18 +95,12 @@ void AGameManager::StartGame()
     ClearMainMenu(); // Clear the main menu before starting the game
     
     // Load the first level (replace "FirstLevel" with the actual level name)
-    UE_LOG(LogTemp, Warning, TEXT("..."));
     UGameplayStatics::OpenLevel(this, FName(TEXT("NewWorld")));
 
-    
-
-    // Call the function to spawn the player pawn at the desired location
-   /* SpawnPlayerPawn();*/
 }
 
 void AGameManager::QuitGame()
 {
-    // Logic to quit the game
     UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit, false);
 }
 
@@ -141,8 +120,6 @@ void AGameManager::NextLevel()
     }
 
     // Set a timer to call the ChangeLevel function after a short delay (e.g., 1 second)
-
-  
     float DelayDuration = 1.0f; // Delay before changing level
     GetWorld()->GetTimerManager().SetTimerForNextTick([this, DelayDuration]()
         {

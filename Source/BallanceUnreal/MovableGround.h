@@ -9,14 +9,13 @@ class BALLANCEUNREAL_API AMovableGround : public AActor
 {
     GENERATED_BODY()
 
-public:
-    // Sets default values for this actor's properties
-    AMovableGround();
-
 protected:
     virtual void BeginPlay() override;
 
 public:
+    // Sets default values for this actor's properties
+    AMovableGround();
+
     virtual void Tick(float DeltaTime) override;
 
     // Movement properties

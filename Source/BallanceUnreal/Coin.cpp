@@ -22,8 +22,6 @@ ACoin::ACoin()
     CoinMesh->SetupAttachment(SphereComponent);
     CoinMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision); // Disable collision for visual mesh
 
-    //// Bind overlap event
-    //SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &ACoin::OnOverlapBegin);
 }
 
 // Called when the game starts or when spawned

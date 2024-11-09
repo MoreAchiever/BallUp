@@ -3,9 +3,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "GameFramework/PlayerInput.h" // For input binding
-#include "InGameHUDWidget.h" // Include the InGameHUDWidget header
-#include "Coin.h" // Include your Coin class header
+#include "GameFramework/PlayerInput.h" 
+#include "InGameHUDWidget.h" 
+#include "Coin.h" 
 #include "Blueprint/UserWidget.h"
 #include "Sound/SoundBase.h"
 
@@ -22,7 +22,6 @@ ASpherePawn::ASpherePawn()
     SphereComponent->SetSimulatePhysics(true); // Enable physics simulation
     SphereComponent->SetCollisionProfileName(TEXT("Pawn")); // Use 'Pawn' collision preset
     SphereComponent->SetEnableGravity(true); // Enable gravity
-
 
     // Initialize Static Mesh Component (for visual representation)
     BallMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BallMesh"));
@@ -51,10 +50,8 @@ ASpherePawn::ASpherePawn()
     // Initialize input variables
     InputLongitude = 0.f;
     InputLatitude = 0.f;
-    bInContact = false; // Initialize contact state to false
 
     Score = 0;
-
 }
 
 // Setup input bindings
@@ -64,7 +61,6 @@ void ASpherePawn::InitializeDefaultPawnInputBindings()
     if (bBindingsAdded) return;
     bBindingsAdded = true;
 
-    UE_LOG(LogTemp, Warning, TEXT("Adding Bindings!"));
     UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_LookUp", EKeys::MouseY, -1.f));
     UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_LookRight", EKeys::MouseX, 1.f));
     UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_MoveLongitudinally", EKeys::W, 1.f));
@@ -74,9 +70,7 @@ void ASpherePawn::InitializeDefaultPawnInputBindings()
     UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_Jump", EKeys::SpaceBar));
     UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_Dash", EKeys::LeftShift));
 
-
     // Camera rotation:
-
     UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_RotateLeft", EKeys::Q));
     UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_RotateRight", EKeys::E));
 }
@@ -91,7 +85,6 @@ void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
     PlayerInputComponent->BindAction("BallBearing_Jump", EInputEvent::IE_Pressed, this, &ASpherePawn::Jump);
     PlayerInputComponent->BindAction("BallBearing_Dash", EInputEvent::IE_Pressed, this, &ASpherePawn::Dash);
 
-
     // Add camera rotation bindings
     PlayerInputComponent->BindAction("BallBearing_RotateLeft", IE_Pressed, this, &ASpherePawn::StartRotateLeft);
     PlayerInputComponent->BindAction("BallBearing_RotateLeft", IE_Released, this, &ASpherePawn::StopRotateLeft);
@@ -102,7 +95,6 @@ void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void ASpherePawn::BeginPlay()
 {
     Super::BeginPlay();
-
     // Create the HUD widget
     if (InGameHUDWidgetClass)
     {
@@ -114,10 +106,8 @@ void ASpherePawn::BeginPlay()
             UpdateScore(Score);
         }
     }
-
     // Bind collision events
     SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &ASpherePawn::OnCoinCollected);
-
 }
 
 void ASpherePawn::UpdateScore(int32 NewScore)
@@ -126,7 +116,6 @@ void ASpherePawn::UpdateScore(int32 NewScore)
 
     if (InGameHUDWidget)
     {
-        UE_LOG(LogTemp, Log, TEXT("Current Score: %d"), Score);
         InGameHUDWidget->UpdateScore(Score);  // Update the score in the HUD
     }
 }
@@ -140,13 +129,10 @@ void ASpherePawn::OnCoinCollected(UPrimitiveComponent* OverlappedComponent, AAct
         {
             UGameplayStatics::PlaySoundAtLocation(this, CollectionSound, GetActorLocation());
         }
-
         UpdateScore(1); // Increment score by 1 for each coin collected
 
         // Destroy the coin after collection
         OtherActor->Destroy();
-
-      
     }
 }
 
@@ -185,6 +171,7 @@ void ASpherePawn::Dash()
         }
     }
 }
+
 void ASpherePawn::RestartGame()
 {
     UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false); // Restart the current level
@@ -196,7 +183,6 @@ void ASpherePawn::Tick(float DeltaTime)
 
     //update camera rotation:
     UpdateCameraRotation(DeltaTime);
-
 
     // Handling input for movement and setting velocities
     FRotator ControlRotation = GetControlRotation(); //FRotator(0, GetControlRotation().Yaw, 0);
@@ -210,7 +196,7 @@ void ASpherePawn::Tick(float DeltaTime)
 
     // Apply movement forces relative to camera orientation
     FVector MovementForce = (InputLatitude * RightDirection + InputLongitude * ForwardDirection) *
-        ControllerForce * SphereComponent->GetMass();
+    ControllerForce * SphereComponent->GetMass();
     SphereComponent->AddForce(MovementForce);
 
     // Cap the speed of the ball
@@ -247,20 +233,8 @@ void ASpherePawn::Tick(float DeltaTime)
         RestartGame(); // Call function to restart the game
     }
 
- 
-
 }
 
-// Input handling methods
-void ASpherePawn::LookUp(float Value)
-{
-    // Implement camera look up/down functionality if necessary
-}
-
-void ASpherePawn::LookRight(float Value)
-{
-    // Implement camera look left/right functionality if necessary
-}
 
 void ASpherePawn::MoveLongitudinally(float Value)
 {
@@ -271,10 +245,6 @@ void ASpherePawn::MoveLaterally(float Value)
 {
     InputLatitude = Value; // Store input value for lateral movement
 }
-
-
-
-//new functions for camera rotation:
 
 void ASpherePawn::StartRotateLeft()
 {

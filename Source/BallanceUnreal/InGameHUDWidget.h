@@ -18,8 +18,6 @@ class BALLANCEUNREAL_API UInGameHUDWidget : public UUserWidget
     GENERATED_BODY()
 
 public:
-
-  
     // Reference to the GameMode  
     UPROPERTY()
     AGameManager* GameManager;
@@ -27,15 +25,6 @@ public:
     // Function to bind button click event
     UFUNCTION(BlueprintCallable, Category = "UI")
     void OnReturnToMainMenu();
-
-
-
-protected:
-    virtual void NativeConstruct() override;
-
-public:
-
-  
 
     // Button to return to the main menu (set this in the UI designer)
     UPROPERTY(meta = (BindWidget))
@@ -49,7 +38,10 @@ public:
 
     UPROPERTY(meta = (BindWidget))
     UTextBlock* ScoreTextBlock;
- 
+
+protected:
+    virtual void NativeConstruct() override;
+   
 private:
     int32 CurrentScore;
 

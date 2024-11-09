@@ -1,7 +1,7 @@
 #include "InGameHUDWidget.h"
 #include "Components/TextBlock.h"
-#include "Kismet/GameplayStatics.h" // Include for UGameplayStatics
-#include "GameManager.h" // Include your GameManager header
+#include "Kismet/GameplayStatics.h" 
+#include "GameManager.h" 
 #include <string> 
 
 
