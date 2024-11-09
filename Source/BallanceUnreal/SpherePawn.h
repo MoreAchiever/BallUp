@@ -31,8 +31,6 @@ public:
     void MoveLaterally(float Value);
     void Jump();
     void Dash();
-    void LookUp(float Value);
-    void LookRight(float Value);
 
     void ResetJump(); // Declare the ResetJump function
     void RestartGame(); // Function to restart the game

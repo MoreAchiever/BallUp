@@ -61,8 +61,6 @@ void ASpherePawn::InitializeDefaultPawnInputBindings()
     if (bBindingsAdded) return;
     bBindingsAdded = true;
 
-    UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_LookUp", EKeys::MouseY, -1.f));
-    UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_LookRight", EKeys::MouseX, 1.f));
     UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_MoveLongitudinally", EKeys::W, 1.f));
     UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_MoveLongitudinally", EKeys::S, -1.f));
     UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("BallBearing_MoveLaterally", EKeys::A, -1.f));
@@ -78,8 +76,6 @@ void ASpherePawn::InitializeDefaultPawnInputBindings()
 void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     InitializeDefaultPawnInputBindings();
-    PlayerInputComponent->BindAxis("BallBearing_LookUp", this, &ASpherePawn::LookUp);
-    PlayerInputComponent->BindAxis("BallBearing_LookRight", this, &ASpherePawn::LookRight);
     PlayerInputComponent->BindAxis("BallBearing_MoveLongitudinally", this, &ASpherePawn::MoveLongitudinally);
     PlayerInputComponent->BindAxis("BallBearing_MoveLaterally", this, &ASpherePawn::MoveLaterally);
     PlayerInputComponent->BindAction("BallBearing_Jump", EInputEvent::IE_Pressed, this, &ASpherePawn::Jump);
