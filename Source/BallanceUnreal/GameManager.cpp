@@ -24,7 +24,18 @@ void AGameManager::BeginPlay()
         {
             // Initialize and display the main menu widget
             InitializeMainMenuWidget();
+            SetMouseCursorVisibility(true); // Show cursor in the main menu
         }
+    }
+}
+
+void AGameManager::SetMouseCursorVisibility(bool bVisible)
+{
+    APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+    if (PlayerController)
+    {
+        PlayerController->bShowMouseCursor = bVisible;
+        PlayerController->SetInputMode(FInputModeGameAndUI()); // Allows gameplay and UI interaction simultaneously
     }
 }
 

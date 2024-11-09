@@ -68,9 +68,10 @@ void ASpherePawn::InitializeDefaultPawnInputBindings()
     UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_Jump", EKeys::SpaceBar));
     UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_Dash", EKeys::LeftShift));
 
-    // Camera rotation:
-    UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_RotateLeft", EKeys::Q));
-    UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_RotateRight", EKeys::E));
+    
+    // Camera rotation using arrow keys
+    UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_RotateLeft", EKeys::Left));
+    UPlayerInput::AddEngineDefinedActionMapping(FInputActionKeyMapping("BallBearing_RotateRight", EKeys::Right));
 }
 
 void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

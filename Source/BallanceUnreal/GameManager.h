@@ -50,6 +50,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
     class USoundBase* NextLevelSound;
 
+    void SetMouseCursorVisibility(bool bVisible);
+
 protected:
     // Called when the game starts
     virtual void BeginPlay() override;
