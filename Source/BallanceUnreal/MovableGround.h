@@ -23,7 +23,7 @@ public:
     float MoveSpeed = 100.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-    FVector MoveDirection = FVector(1, 0, 0);
+    FVector MoveDirection = FVector(0, 0, 1);
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
     float MoveDistance = 500.0f;
